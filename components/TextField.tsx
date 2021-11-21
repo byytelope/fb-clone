@@ -14,7 +14,7 @@ export default function TextField({ ...props }: TextFieldProps) {
       <input
         {...props}
         type={inputType}
-        className="border-none focus:ring-0 w-full mx-1"
+        className="border-none focus:ring-0 w-full mx-1 rounded"
       />
       {showPassword ? (
         <button

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,12 +13,14 @@ const secondaryClass =
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ ...props }, ref) => (
-    <button
-      {...props}
-      ref={ref}
-      onClick={(e) => e.preventDefault()}
-      className={props.variant === "primary" ? primaryClass : secondaryClass}
-    />
+    <motion.div className="w-full" whileTap={{ scale: 0.97 }}>
+      <button
+        {...props}
+        ref={ref}
+        onClick={(e) => e.preventDefault()}
+        className={props.variant === "primary" ? primaryClass : secondaryClass}
+      />
+    </motion.div>
   )
 );
 
