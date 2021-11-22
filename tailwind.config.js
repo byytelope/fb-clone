@@ -1,4 +1,5 @@
 module.exports = {
+  mode: "jit",
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: "media",
   theme: {
@@ -18,7 +19,8 @@ module.exports = {
       greenSecondary: "#2b9217",
       red: "#E41E3F",
       textPrimary: "#050505",
-      textSecondary: "#B0B3B8",
+      textSecondary: "#606770",
+      textTertiary: "#B0B3B8",
     },
     screens: {
       xs: "320px",

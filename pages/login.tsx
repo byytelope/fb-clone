@@ -1,10 +1,17 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../components/Button";
 import CommonHead from "../components/CommonHead";
 import TextField from "../components/TextField";
+import SignUpDialog from "../components/SignUpDialog";
+import Divider from "../components/Divider";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <main>
       <CommonHead title="Facebook - log in or sign up" />
@@ -28,21 +35,49 @@ export default function Login() {
                 <div className="space-y-2 w-full">
                   <TextField
                     type="email"
-                    placeholder="Email address or phone number"
+                    placeholder="Email address"
+                    value={email}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setEmail(e.target.value);
+                    }}
                   />
                   <TextField
                     type="password"
                     placeholder="Password"
-                    showpassword="true"
+                    togglepassword="true"
+                    value={password}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setPassword(e.target.value);
+                    }}
                   />
                 </div>
-                <Button variant="primary">Log In</Button>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                >
+                  Log In
+                </Button>
                 <Link href="/">Forgotten password?</Link>
-                <div className="h-px w-full bg-black bg-opacity-10" />
-                <Button variant="secondary">Create New Account</Button>
+                <Divider />
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsDialogOpen(true);
+                  }}
+                >
+                  Create New Account
+                </Button>
               </form>
             </div>
           </div>
+          <SignUpDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} />
         </section>
         <footer className="flex flex-col h-full sm:h-1/4 bg-white px-4 md:px-16 lg:px-24 xl:px-32 2xl:px-80 text-textSecondary text-xs space-y-4 py-8">
           <p>
@@ -51,7 +86,7 @@ export default function Login() {
             tempore laudantium. Consequatur illo perspiciatis labore reiciendis
             dignissimos nihil fuga. Mollitia, praesentium aperiam.
           </p>
-          <div className="h-px w-full bg-black bg-opacity-10" />
+          <Divider />
           <span>Meta © 2021</span>
         </footer>
       </div>

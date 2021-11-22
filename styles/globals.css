@@ -8,6 +8,6 @@
   }
 
   a {
-    @apply text-bluePrimary hover:text-blueSecondary focus:text-blueTertiary;
+    @apply text-bluePrimary hover:text-blueSecondary focus:text-blueSecondary;
   }
 }

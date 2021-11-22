@@ -17,7 +17,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         {...props}
         ref={ref}
-        onClick={(e) => e.preventDefault()}
         className={props.variant === "primary" ? primaryClass : secondaryClass}
       />
     </motion.div>
