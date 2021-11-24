@@ -1,16 +1,28 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { withIronSessionSsr } from "iron-session/next";
+import { sessionOptions } from "../lib/session";
 
-export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace("/login");
-  }, [router]);
-
+export default function Index() {
   return (
-    <div className="h-screen w-full flex justify-center items-center">
-      Home Page
-    </div>
+    <div className="flex justify-center items-center h-screen">Logged In</div>
   );
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req }) {
+    const userId = req.session.userId;
+
+    if (userId == null) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: true,
+        },
+      };
+    }
+
+    return {
+      props: { userId },
+    };
+  },
+  sessionOptions
+);

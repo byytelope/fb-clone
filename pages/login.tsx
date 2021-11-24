@@ -1,16 +1,28 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../components/Button";
+import { useRouter } from "next/router";
+import { withIronSessionSsr } from "iron-session/next";
+import Button from "../components/Button";
 import CommonHead from "../components/CommonHead";
-import TextField from "../components/TextField";
-import SignUpDialog from "../components/SignUpDialog";
 import Divider from "../components/Divider";
+import Modal from "../components/Modal";
+import Select from "../components/Select";
+import TextField from "../components/TextField";
+import { sessionOptions } from "../lib/session";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("male");
+  const initialFocusRef = useRef(null);
+  const router = useRouter();
 
   return (
     <main>
@@ -56,13 +68,28 @@ export default function Login() {
                 <Button
                   variant="primary"
                   type="submit"
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.preventDefault();
+
+                    await fetch("/api/signin", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        email,
+                        password,
+                      }),
+                    }).then((res) => console.log(JSON.stringify(res.body)));
+
+                    router.replace("/");
                   }}
                 >
                   Log In
                 </Button>
-                <Link href="/">Forgotten password?</Link>
+                <span className="text-sm">
+                  <Link href="/forgotten-password">Forgotten password?</Link>
+                </span>
                 <Divider />
                 <Button
                   variant="secondary"
@@ -77,7 +104,118 @@ export default function Login() {
               </form>
             </div>
           </div>
-          <SignUpDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} />
+          <Modal
+            isOpen={isDialogOpen}
+            setIsOpen={setIsDialogOpen}
+            initialFocusRef={initialFocusRef}
+            title="Sign Up"
+            description="It's quick and easy."
+          >
+            <form className="space-y-2">
+              <div className="flex space-x-2">
+                <TextField
+                  id="firstNameSignUp"
+                  placeholder="First name"
+                  value={firstName}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setFirstName(e.target.value);
+                  }}
+                  ref={initialFocusRef}
+                />
+                <TextField
+                  id="surnameSignUp"
+                  placeholder="Surname"
+                  value={surname}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setSurname(e.target.value);
+                  }}
+                />
+              </div>
+              <TextField
+                id="emailSignUp"
+                type="email"
+                placeholder="Email address"
+                value={signUpEmail}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setSignUpEmail(e.target.value);
+                }}
+              />
+              <TextField
+                id="passwordSignUp"
+                type="password"
+                autoComplete="new-password"
+                togglepassword="true"
+                placeholder="New password"
+                value={newPassword}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setNewPassword(e.target.value);
+                }}
+              />
+              <TextField
+                id="dobSignUp"
+                type="date"
+                label="Date of birth"
+                value={dob}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setDob(e.target.value);
+                }}
+              />
+              <Select
+                id="genderSignUp"
+                label="Gender"
+                options={[
+                  { name: "Male", value: "male" },
+                  { name: "Female", value: "female" },
+                ]}
+                value={gender}
+                onChange={(e) => {
+                  e.preventDefault();
+                  setGender(e.target.value);
+                }}
+              />
+              <p className="text-xs text-textSecondary py-4">
+                By clicking Sign Up, you agree to our Terms, Data Policy and
+                Cookie Policy. You may receive SMS notifications from us and can
+                opt out at any time.
+              </p>
+              <Button
+                variant="secondary"
+                type="submit"
+                onClick={async (e) => {
+                  e.preventDefault();
+
+                  await fetch("/api/signup", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      name: firstName + " " + surname,
+                      email: signUpEmail,
+                      password: newPassword,
+                      dob: dob,
+                      gender: gender,
+                    }),
+                  }).then((res) => {
+                    console.log(JSON.stringify(res.body));
+
+                    if (res.status === 201) {
+                      setIsDialogOpen(false);
+                      router.replace("/");
+                    } else {
+                    }
+                  });
+                }}
+              >
+                Sign Up
+              </Button>
+            </form>
+          </Modal>
         </section>
         <footer className="flex flex-col h-full sm:h-1/4 bg-white px-4 md:px-16 lg:px-24 xl:px-32 2xl:px-80 text-textSecondary text-xs space-y-4 py-8">
           <p>
@@ -93,3 +231,23 @@ export default function Login() {
     </main>
   );
 }
+
+export const getServerSideProps = withIronSessionSsr(
+  async function getServerSideProps({ req }) {
+    const userId = req.session.userId;
+
+    if (userId != null) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: true,
+        },
+      };
+    }
+
+    return {
+      props: {},
+    };
+  },
+  sessionOptions
+);

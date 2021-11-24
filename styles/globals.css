@@ -4,10 +4,10 @@
 
 @layer base {
   html {
-    @apply bg-lightBg text-textPrimary;
+    @apply bg-lightBg text-textPrimary caret-bluePrimary;
   }
 
   a {
-    @apply text-bluePrimary hover:text-blueSecondary focus:text-blueSecondary;
+    @apply font-medium text-bluePrimary hover:text-blueSecondary focus:text-blueSecondary hover:underline;
   }
 }
