@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +13,7 @@ import Select from "../components/Select";
 import TextField from "../components/TextField";
 import { sessionOptions } from "../lib/session";
 
-export default function Login() {
+const Login: NextPage = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
@@ -334,9 +335,9 @@ export default function Login() {
       </div>
     </main>
   );
-}
+};
 
-export const getServerSideProps = withIronSessionSsr(
+const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -355,3 +356,8 @@ export const getServerSideProps = withIronSessionSsr(
   },
   sessionOptions
 );
+
+Login.displayName = "Login";
+
+export default Login;
+export { getServerSideProps };

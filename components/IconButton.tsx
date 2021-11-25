@@ -14,7 +14,7 @@ export default function IconButton({
     <motion.button
       type="button"
       onClick={onClick}
-      className={`p-2 rounded-full h-8 hover:bg-lightSecondary ${
+      className={`p-2 rounded-full h-full hover:bg-lightSecondary transition-colors duration-300 ${
         variant === "primary" ? "bg-lightBg" : "bg-transparent"
       }`}
       whileTap={{ scale: 0.95 }}

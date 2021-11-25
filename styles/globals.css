@@ -10,4 +10,12 @@
   a {
     @apply font-medium text-bluePrimary hover:text-blueSecondary focus:text-blueSecondary hover:underline;
   }
+
+  .tooltip {
+    @apply invisible opacity-0 absolute rounded-lg text-white text-sm bg-darkBg bg-opacity-70 px-4 py-2 shadow-md transition-all duration-300 mt-12 backdrop-blur-sm pointer-events-none;
+  }
+
+  .has-tooltip:hover .tooltip {
+    @apply visible opacity-100 z-50;
+  }
 }

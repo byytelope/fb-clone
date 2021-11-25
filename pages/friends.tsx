@@ -2,10 +2,10 @@ import { NextPage } from "next";
 import { withIronSessionSsr } from "iron-session/next";
 import { sessionOptions } from "../lib/session";
 
-const Index: NextPage = () => {
+const Friends: NextPage = () => {
   return (
     <div>
-      <span>Logged In</span>
+      <span>Friends</span>
       <div className="h-screen" />
       <div className="h-screen" />
       <div className="h-screen" />
@@ -33,5 +33,5 @@ const getServerSideProps = withIronSessionSsr(
   sessionOptions
 );
 
-export default Index;
+export default Friends;
 export { getServerSideProps };
