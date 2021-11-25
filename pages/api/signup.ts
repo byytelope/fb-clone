@@ -18,26 +18,58 @@ import { User } from "../../lib/user";
 export default withIronSessionApiRoute(
   async function handler(req, res) {
     if (req.method === "POST") {
-      const { name, email, password, dob, gender }: User = req.body;
-      const nameValid = isAlpha(name, "en-US", {
+      const { firstName, surname, email, password, dob, gender }: User =
+        req.body;
+      const firstNameValid = isAlpha(firstName, "en-US", {
+        ignore: " ",
+      });
+      const surnameValid = isAlpha(firstName, "en-US", {
         ignore: " ",
       });
       const emailValid = isEmail(email);
       const passValid = isStrongPassword(password);
       const dobValid = isDate(dob);
       const genderValid = gender === "male" || gender === "female";
-      console.log("Name valid:" + nameValid);
-      console.log("Email valid:" + emailValid);
-      console.log("Password valid:" + passValid);
-      console.log("Date valid:" + dobValid);
 
       if (
-        nameValid && emailValid && passValid && dobValid && genderValid
+        !firstNameValid || !surnameValid || !emailValid || !passValid ||
+        !dobValid || !genderValid
       ) {
-        console.log("Creds hehe");
-      } else {
-        console.log("Creds not hehe");
-        res.status(422).json({ message: "Invalid data" });
+        const errorJson: {
+          message: string;
+          firstName?: string;
+          surname?: string;
+          email?: string;
+          password?: string;
+          dob?: string;
+          gender?: string;
+        } = { message: "Invalid data" };
+
+        if (!firstNameValid) {
+          errorJson.firstName = "Invalid first name";
+        }
+
+        if (!surnameValid) {
+          errorJson.surname = "Invalid surname";
+        }
+
+        if (!emailValid) {
+          errorJson.email = "Please provide a valid email";
+        }
+
+        if (!passValid) {
+          errorJson.password = "Password too weak";
+        }
+
+        if (!dobValid) {
+          errorJson.dob = "Please provide a valid date";
+        }
+
+        if (!genderValid) {
+          errorJson.gender = "Please select a gender";
+        }
+
+        res.status(422).json(errorJson);
         return;
       }
 
@@ -45,20 +77,19 @@ export default withIronSessionApiRoute(
       const snapshot = await getDocs(q);
 
       if (!snapshot.empty) {
-        console.log("User not hehe");
         res.status(422).json({ message: "User already exists" });
         return;
       }
 
       const doc = addDoc(collection(db, "users"), {
-        name,
-        username: name.replaceAll(" ", "").toLowerCase(),
+        firstName,
+        surname,
+        username: firstName.toLowerCase() + surname.toLowerCase(),
         email,
         password: await hash(password, 12),
         dob,
         gender,
       });
-      console.log("User hehe");
       const userId = (await doc).id;
       req.session.userId = userId;
       await req.session.save();

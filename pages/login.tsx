@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
+import isEmail from "validator/lib/isEmail";
 import Button from "../components/Button";
 import CommonHead from "../components/CommonHead";
 import Divider from "../components/Divider";
@@ -13,7 +14,9 @@ import { sessionOptions } from "../lib/session";
 
 export default function Login() {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
@@ -21,8 +24,140 @@ export default function Login() {
   const [newPassword, setNewPassword] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("male");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [surnameError, setSurnameError] = useState("");
+  const [signUpEmailError, setSignUpEmailError] = useState("");
+  const [newPasswordError, setNewPasswordError] = useState("");
+  const [dobError, setDobError] = useState("");
+  const [genderError, setGenderError] = useState("");
   const initialFocusRef = useRef(null);
   const router = useRouter();
+
+  const dialogCallback = () => {
+    setIsDialogOpen(false);
+    setFirstNameError("");
+    setSurnameError("");
+    setSignUpEmailError("");
+    setNewPasswordError("");
+    setDobError("");
+    setGenderError("");
+  };
+
+  const onSignInSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (email === "" || !isEmail(email)) {
+      setEmailError("Please provide a valid email");
+    } else {
+      setEmailError("");
+    }
+
+    if (password === "") {
+      setPasswordError("Please provide a password");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
+    if (!isEmail(email)) {
+      setEmailError("Please provide a valid email");
+    } else {
+      setEmailError("");
+
+      await fetch("/api/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }).then(async (res) => {
+        const { message }: { message: string } = await res.json();
+        console.log(message);
+
+        if (res.status === 404) {
+          setEmailError(message);
+        } else if (res.status === 401) {
+          setPasswordError(message);
+        } else if (res.status === 200) {
+          await router.replace("/");
+        }
+      });
+    }
+  };
+
+  const onSignUpSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        surname,
+        email: signUpEmail,
+        password: newPassword,
+        dob,
+        gender,
+      }),
+    }).then(async (res) => {
+      const json: {
+        message: string;
+        firstName?: string;
+        surname?: string;
+        email?: string;
+        password?: string;
+        dob?: string;
+        gender?: string;
+      } = await res.json();
+      console.log(json);
+
+      if (res.status === 201) {
+        setIsDialogOpen(false);
+        await router.replace("/");
+      } else if (res.status === 422) {
+        if (json.firstName != null) {
+          setFirstNameError(json.firstName);
+        } else {
+          setFirstNameError("");
+        }
+
+        if (json.surname != null) {
+          setSurnameError(json.surname);
+        } else {
+          setSurnameError("");
+        }
+
+        if (json.email != null) {
+          setSignUpEmailError(json.email);
+        } else {
+          setSignUpEmailError("");
+        }
+
+        if (json.password != null) {
+          setNewPasswordError(json.password);
+        } else {
+          setNewPasswordError("");
+        }
+
+        if (json.dob != null) {
+          setDobError(json.dob);
+        } else {
+          setDobError("");
+        }
+
+        if (json.gender != null) {
+          setGenderError(json.gender);
+        } else {
+          setGenderError("");
+        }
+      }
+    });
+  };
 
   return (
     <main>
@@ -49,41 +184,28 @@ export default function Login() {
                     type="email"
                     placeholder="Email address"
                     value={email}
+                    errorText={emailError}
                     onChange={(e) => {
                       e.preventDefault();
-                      setEmail(e.target.value);
+                      setEmail(e.target.value.trim());
                     }}
                   />
                   <TextField
                     type="password"
                     placeholder="Password"
-                    togglepassword="true"
+                    togglePassword="true"
                     value={password}
+                    errorText={passwordError}
                     onChange={(e) => {
                       e.preventDefault();
-                      setPassword(e.target.value);
+                      setPassword(e.target.value.trim());
                     }}
                   />
                 </div>
                 <Button
                   variant="primary"
                   type="submit"
-                  onClick={async (e) => {
-                    e.preventDefault();
-
-                    await fetch("/api/signin", {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({
-                        email,
-                        password,
-                      }),
-                    }).then((res) => console.log(JSON.stringify(res.body)));
-
-                    router.replace("/");
-                  }}
+                  onClick={onSignInSubmit}
                 >
                   Log In
                 </Button>
@@ -106,7 +228,7 @@ export default function Login() {
           </div>
           <Modal
             isOpen={isDialogOpen}
-            setIsOpen={setIsDialogOpen}
+            onClose={dialogCallback}
             initialFocusRef={initialFocusRef}
             title="Sign Up"
             description="It's quick and easy."
@@ -117,19 +239,21 @@ export default function Login() {
                   id="firstNameSignUp"
                   placeholder="First name"
                   value={firstName}
+                  ref={initialFocusRef}
+                  errorText={firstNameError}
                   onChange={(e) => {
                     e.preventDefault();
-                    setFirstName(e.target.value);
+                    setFirstName(e.target.value.trim());
                   }}
-                  ref={initialFocusRef}
                 />
                 <TextField
                   id="surnameSignUp"
                   placeholder="Surname"
                   value={surname}
+                  errorText={surnameError}
                   onChange={(e) => {
                     e.preventDefault();
-                    setSurname(e.target.value);
+                    setSurname(e.target.value.trim());
                   }}
                 />
               </div>
@@ -138,21 +262,23 @@ export default function Login() {
                 type="email"
                 placeholder="Email address"
                 value={signUpEmail}
+                errorText={signUpEmailError}
                 onChange={(e) => {
                   e.preventDefault();
-                  setSignUpEmail(e.target.value);
+                  setSignUpEmail(e.target.value.trim());
                 }}
               />
               <TextField
                 id="passwordSignUp"
                 type="password"
                 autoComplete="new-password"
-                togglepassword="true"
+                togglePassword="true"
                 placeholder="New password"
                 value={newPassword}
+                errorText={newPasswordError}
                 onChange={(e) => {
                   e.preventDefault();
-                  setNewPassword(e.target.value);
+                  setNewPassword(e.target.value.trim());
                 }}
               />
               <TextField
@@ -160,9 +286,10 @@ export default function Login() {
                 type="date"
                 label="Date of birth"
                 value={dob}
+                errorText={dobError}
                 onChange={(e) => {
                   e.preventDefault();
-                  setDob(e.target.value);
+                  setDob(e.target.value.trim());
                 }}
               />
               <Select
@@ -173,9 +300,10 @@ export default function Login() {
                   { name: "Female", value: "female" },
                 ]}
                 value={gender}
+                errorText={genderError}
                 onChange={(e) => {
                   e.preventDefault();
-                  setGender(e.target.value);
+                  setGender(e.target.value.trim());
                 }}
               />
               <p className="text-xs text-textSecondary py-4">
@@ -186,31 +314,7 @@ export default function Login() {
               <Button
                 variant="secondary"
                 type="submit"
-                onClick={async (e) => {
-                  e.preventDefault();
-
-                  await fetch("/api/signup", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      name: firstName + " " + surname,
-                      email: signUpEmail,
-                      password: newPassword,
-                      dob: dob,
-                      gender: gender,
-                    }),
-                  }).then((res) => {
-                    console.log(JSON.stringify(res.body));
-
-                    if (res.status === 201) {
-                      setIsDialogOpen(false);
-                      router.replace("/");
-                    } else {
-                    }
-                  });
-                }}
+                onClick={onSignUpSubmit}
               >
                 Sign Up
               </Button>

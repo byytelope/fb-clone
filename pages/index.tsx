@@ -1,9 +1,20 @@
 import { withIronSessionSsr } from "iron-session/next";
+import CommonHead from "../components/CommonHead";
+import Navbar from "../components/Navbar";
 import { sessionOptions } from "../lib/session";
 
 export default function Index() {
   return (
-    <div className="flex justify-center items-center h-screen">Logged In</div>
+    <main className="flex flex-col">
+      <CommonHead themeColor="#FFFFFF" />
+      <div className="mb-14">
+        <Navbar />
+      </div>
+      <span>Logged In</span>
+      <div className="h-screen" />
+      <div className="h-screen" />
+      <div className="h-screen" />
+    </main>
   );
 }
 

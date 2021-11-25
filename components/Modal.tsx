@@ -14,14 +14,14 @@ import Button from "./Button";
 
 export default function Modal({
   isOpen,
-  setIsOpen,
+  onClose,
   initialFocusRef,
   children,
   title,
   description,
 }: {
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onClose: () => void;
   initialFocusRef?: MutableRefObject<any>;
   children: ReactNode;
   title: string;
@@ -31,7 +31,7 @@ export default function Modal({
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        onClose={() => setIsOpen(false)}
+        onClose={onClose}
         className="fixed inset-0 z-10 overflow-y-auto"
         initialFocus={initialFocusRef}
       >
@@ -76,7 +76,7 @@ export default function Modal({
                 <IconButton
                   onClick={(e) => {
                     e.preventDefault();
-                    setIsOpen(false);
+                    onClose();
                   }}
                   variant="primary"
                 >
