@@ -21,6 +21,7 @@ module.exports = {
       textPrimary: "#050505",
       textSecondary: "#606770",
       textTertiary: "#B0B3B8",
+      lightBlue: "#E7F3FF",
     },
     screens: {
       xs: "320px",

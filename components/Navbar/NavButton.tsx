@@ -23,8 +23,9 @@ export default function NavButton({
       </div>
       <motion.div
         className="w-full h-[3px] bg-bluePrimary absolute bottom-0 rounded-t-sm origin-bottom"
+        initial={{ scaleY: 0 }}
         animate={active ? { scaleY: 1 } : { scaleY: 0 }}
-        transition={{ ease: "anticipate", duration: 0.2 }}
+        transition={{ ease: "easeOut", duration: 0.2 }}
       />
     </div>
   );

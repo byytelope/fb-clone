@@ -10,7 +10,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { BsXLg } from "react-icons/bs";
 import Divider from "./Divider";
 import IconButton from "./IconButton";
-import Button from "./Button";
+import FormButton from "./FormButton";
 
 export default function Modal({
   isOpen,

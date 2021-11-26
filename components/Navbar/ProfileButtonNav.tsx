@@ -1,11 +1,25 @@
+import { MouseEventHandler } from "react";
 import Image from "next/image";
 import noProfilePic from "../../public/noProfilePic.png";
+import { motion } from "framer-motion";
 
-export default function ProfileButtonNav() {
+export default function ProfileButtonNav({
+  active,
+  onClick,
+}: {
+  active: boolean;
+  onClick: MouseEventHandler<HTMLDivElement>;
+}) {
   return (
-    <div className="flex justify-center items-center hover:bg-lightBg p-1 rounded-full transition-colors duration-300 cursor-pointer has-tooltip">
+    <motion.div
+      className={`flex justify-center items-center ${
+        active ? "bg-lightBlue text-bluePrimary" : "hover:bg-lightBg"
+      } p-1 rounded-full transition-colors duration-300 cursor-pointer has-tooltip`}
+      onClick={onClick}
+      whileTap={{ scale: 0.97 }}
+    >
       <span className="tooltip">Profile</span>
-      <div className="flex pr-2">
+      <div className="flex">
         <Image
           src={noProfilePic}
           alt="Profile Pic"
@@ -15,7 +29,7 @@ export default function ProfileButtonNav() {
           className="rounded-full"
         />
       </div>
-      <span className="font-medium text-sm pr-2">Mohamed</span>
-    </div>
+      <span className="font-medium text-sm px-2">Mohamed</span>
+    </motion.div>
   );
 }

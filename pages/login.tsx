@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
 import isEmail from "validator/lib/isEmail";
-import Button from "../components/Button";
+import FormButton from "../components/FormButton";
 import CommonHead from "../components/CommonHead";
 import Divider from "../components/Divider";
 import Modal from "../components/Modal";
 import Select from "../components/Select";
 import TextField from "../components/TextField";
 import { sessionOptions } from "../lib/session";
+import { motion } from "framer-motion";
 
 const Login: NextPage = () => {
   const [email, setEmail] = useState("");
@@ -203,18 +204,18 @@ const Login: NextPage = () => {
                     }}
                   />
                 </div>
-                <Button
+                <FormButton
                   variant="primary"
                   type="submit"
                   onClick={onSignInSubmit}
                 >
                   Log In
-                </Button>
+                </FormButton>
                 <span className="text-sm">
                   <Link href="/forgotten-password">Forgotten password?</Link>
                 </span>
                 <Divider />
-                <Button
+                <FormButton
                   variant="secondary"
                   type="button"
                   onClick={(e) => {
@@ -223,7 +224,7 @@ const Login: NextPage = () => {
                   }}
                 >
                   Create New Account
-                </Button>
+                </FormButton>
               </form>
             </div>
           </div>
@@ -312,13 +313,13 @@ const Login: NextPage = () => {
                 Cookie Policy. You may receive SMS notifications from us and can
                 opt out at any time.
               </p>
-              <Button
+              <FormButton
                 variant="secondary"
                 type="submit"
                 onClick={onSignUpSubmit}
               >
                 Sign Up
-              </Button>
+              </FormButton>
             </form>
           </Modal>
         </section>

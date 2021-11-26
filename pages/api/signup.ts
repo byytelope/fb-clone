@@ -95,8 +95,10 @@ export default withIronSessionApiRoute(
       await req.session.save();
 
       res.status(201).json({ message: "User registered and logged in" });
+      return;
     } else {
       res.status(500).json({ message: "Invalid route" });
+      return;
     }
   },
   sessionOptions,

@@ -1,20 +1,23 @@
 import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface FormButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "primary" | "secondary";
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const FormButton = forwardRef<HTMLButtonElement, FormButtonProps>(
   ({ ...props }, ref) => {
     const primaryClass =
-      "bg-bluePrimary hover:bg-blueSecondary focus:bg-blueTertiary text-white";
+      "bg-bluePrimary hover:bg-blueSecondary focus:bg-blueTertiary text-white text-xl";
     const secondaryClass =
-      "bg-lightBg hover:bg-lightSecondary focus:bg-lightSecondary text-black";
+      "bg-greenPrimary hover:bg-greenSecondary focus:bg-greenSecondary text-white text-lg";
     const disabledClass = "bg-lightBg text-textTertiary pointer-events-none";
 
     return (
-      <motion.div whileTap={props.disabled ? {} : { scale: 0.97 }}>
+      <motion.div
+        className="w-full"
+        whileTap={props.disabled ? {} : { scale: 0.97 }}
+      >
         <button
           {...props}
           ref={ref}
@@ -24,13 +27,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               : props.variant === "primary"
               ? primaryClass
               : secondaryClass
-          } font-medium rounded-md h-9 px-4 transition-colors duration-300 flex items-center`}
+          } w-full font-semibold rounded-md h-12 px-8 transition-colors duration-300`}
         />
       </motion.div>
     );
   }
 );
 
-Button.displayName = "Button";
+FormButton.displayName = "FormButton";
 
-export default Button;
+export default FormButton;
