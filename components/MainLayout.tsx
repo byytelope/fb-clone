@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import CommonHead from "./CommonHead";
 import Navbar from "./Navbar/Navbar";
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <main className="flex flex-col">
       <CommonHead themeColor="#FFFFFF" />

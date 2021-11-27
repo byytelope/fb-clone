@@ -10,15 +10,21 @@ export default function NavButton({
   children: ReactNode;
   active: boolean;
   onClick: MouseEventHandler<HTMLDivElement>;
-  tooltip: string;
+  tooltip?: string;
 }) {
   return (
-    <div
-      className="flex relative items-center h-14 w-full justify-center has-tooltip"
-      onClick={onClick}
-    >
-      <span className="tooltip">{tooltip}</span>
-      <div className="flex justify-center items-center h-12 w-full cursor-pointer rounded-lg hover:bg-lightBg transition-colors duration-300 my-4">
+    <div className="flex relative items-center h-14 w-full justify-center has-tooltip">
+      {tooltip === undefined ? (
+        <></>
+      ) : (
+        <span className="tooltip">{tooltip}</span>
+      )}
+      <div
+        className={`flex justify-center items-center h-12 w-full cursor-pointer rounded-lg hover:bg-lightBg transition-colors duration-300 my-4 font-medium ${
+          active ? "text-bluePrimary" : "text-textSecondary"
+        }`}
+        onClick={onClick}
+      >
         {children}
       </div>
       <motion.div

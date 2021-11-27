@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import { withIronSessionSsr } from "iron-session/next";
 import { sessionOptions } from "../lib/session";
+import { paddingClass } from "../lib/constants";
 
 const Index: NextPage = () => {
   return (
-    <div>
+    <div className={paddingClass}>
       <span>Logged In</span>
       <div className="h-screen" />
       <div className="h-screen" />

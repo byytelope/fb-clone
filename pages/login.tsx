@@ -12,7 +12,7 @@ import Modal from "../components/Modal";
 import Select from "../components/Select";
 import TextField from "../components/TextField";
 import { sessionOptions } from "../lib/session";
-import { motion } from "framer-motion";
+import fbLogo from "../public/fbLogo.png";
 
 const Login: NextPage = () => {
   const [email, setEmail] = useState("");
@@ -168,7 +168,7 @@ const Login: NextPage = () => {
         <section className="flex flex-col md:flex-row justify-center items-center lg:justify-start h-full sm:h-3/4 w-full px-4 md:px-16 lg:px-24 xl:px-32 2xl:px-80 py-16 md:py-0 lg:space-x-16 space-y-8 lg:space-y-0">
           <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left w-full lg:w-3/5 space-y-6">
             <Image
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Facebook_Logo_%282019%29.svg/2560px-Facebook_Logo_%282019%29.svg.png"
+              src={fbLogo}
               alt="Facebook"
               layout="fixed"
               width={256}

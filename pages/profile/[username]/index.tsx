@@ -1,17 +1,9 @@
 import { NextPage } from "next";
 import { withIronSessionSsr } from "iron-session/next";
-import { sessionOptions } from "../lib/session";
-import { paddingClass } from "../lib/constants";
+import { sessionOptions } from "../../../lib/session";
 
-const Friends: NextPage = () => {
-  return (
-    <div className={paddingClass}>
-      <span>Friends</span>
-      <div className="h-screen" />
-      <div className="h-screen" />
-      <div className="h-screen" />
-    </div>
-  );
+const Profile: NextPage = () => {
+  return <div>Profile</div>;
 };
 
 const getServerSideProps = withIronSessionSsr(
@@ -34,5 +26,7 @@ const getServerSideProps = withIronSessionSsr(
   sessionOptions
 );
 
-export default Friends;
+Profile.displayName = "Profile";
+
+export default Profile;
 export { getServerSideProps };

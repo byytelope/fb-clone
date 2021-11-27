@@ -1,18 +1,33 @@
 import type { AppProps } from "next/app";
 import { IconContext } from "react-icons";
-import Layout from "../components/Layout";
+import MainLayout from "../components/MainLayout";
+import ProfileLayout from "../components/Profile/ProfileLayout";
 import "../styles/globals.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return Component.displayName === "Login" ? (
-    <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
-      <Component {...pageProps} />
-    </IconContext.Provider>
-  ) : (
-    <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
-      <Layout>
+  if (Component.displayName === "Login") {
+    return (
+      <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
         <Component {...pageProps} />
-      </Layout>
-    </IconContext.Provider>
-  );
+      </IconContext.Provider>
+    );
+  } else if (Component.displayName?.startsWith("Profile")) {
+    return (
+      <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
+        <MainLayout>
+          <ProfileLayout>
+            <Component {...pageProps} />
+          </ProfileLayout>
+        </MainLayout>
+      </IconContext.Provider>
+    );
+  } else {
+    return (
+      <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
+      </IconContext.Provider>
+    );
+  }
 }
