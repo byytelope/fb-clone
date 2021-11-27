@@ -5,12 +5,12 @@ import NavButton from "../Navbar/NavButton";
 export default function ProfileMenubar() {
   const router = useRouter();
   const profileMenuItems = [
-    { name: "Posts", link: "/profile/[username]" },
-    { name: "About", link: "/profile/[username]/about" },
-    { name: "Friends", link: "/profile/[username]/friends" },
-    { name: "Photos", link: "/profile/[username]/photos" },
-    { name: "Story Archive", link: "/profile/[username]/archive" },
-    { name: "Videos", link: "/profile/[username]/videos" },
+    { name: "Posts", link: "/[username]" },
+    { name: "About", link: "/[username]/about" },
+    { name: "Friends", link: "/[username]/friends" },
+    { name: "Photos", link: "/[username]/photos" },
+    { name: "Story Archive", link: "/[username]/archive" },
+    { name: "Videos", link: "/[username]/videos" },
   ];
 
   return (

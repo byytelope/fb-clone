@@ -5,7 +5,7 @@ import ProfileLayout from "../components/Profile/ProfileLayout";
 import "../styles/globals.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  if (Component.displayName === "Login") {
+  if (Component.displayName?.startsWith("Login")) {
     return (
       <IconContext.Provider value={{ style: { verticalAlign: "middle" } }}>
         <Component {...pageProps} />

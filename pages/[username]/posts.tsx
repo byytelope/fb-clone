@@ -1,9 +1,9 @@
-import { NextPage } from "next";
 import { withIronSessionSsr } from "iron-session/next";
-import { sessionOptions } from "../../../lib/session";
+import { NextPage } from "next";
+import { sessionOptions } from "../../lib/session";
 
-const Profile: NextPage = () => {
-  return <div>Profile</div>;
+const ProfilePosts: NextPage = () => {
+  return <div>Posts</div>;
 };
 
 const getServerSideProps = withIronSessionSsr(
@@ -26,7 +26,7 @@ const getServerSideProps = withIronSessionSsr(
   sessionOptions
 );
 
-Profile.displayName = "Profile";
+ProfilePosts.displayName = "ProfilePosts";
 
-export default Profile;
+export default ProfilePosts;
 export { getServerSideProps };

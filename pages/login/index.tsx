@@ -5,14 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { withIronSessionSsr } from "iron-session/next";
 import isEmail from "validator/lib/isEmail";
-import FormButton from "../components/FormButton";
-import CommonHead from "../components/CommonHead";
-import Divider from "../components/Divider";
-import Modal from "../components/Modal";
-import Select from "../components/Select";
-import TextField from "../components/TextField";
-import { sessionOptions } from "../lib/session";
-import fbLogo from "../public/fbLogo.png";
+import FormButton from "../../components/FormButton";
+import CommonHead from "../../components/CommonHead";
+import Divider from "../../components/Divider";
+import Modal from "../../components/Modal";
+import Select from "../../components/Select";
+import TextField from "../../components/TextField";
+import { sessionOptions } from "../../lib/session";
+import fbLogo from "../../public/fbLogo.png";
 
 const Login: NextPage = () => {
   const [email, setEmail] = useState("");
@@ -212,7 +212,7 @@ const Login: NextPage = () => {
                   Log In
                 </FormButton>
                 <span className="text-sm">
-                  <Link href="/forgotten-password">Forgotten password?</Link>
+                  <Link href="/login/identify">Forgotten password?</Link>
                 </span>
                 <Divider />
                 <FormButton

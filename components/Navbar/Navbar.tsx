@@ -39,10 +39,10 @@ export default function Navbar() {
       </div>
       <div className="flex justify-self-end items-center space-x-4 text-xl">
         <ProfileButtonNav
-          active={router.pathname.startsWith("/profile/[username]")}
+          active={router.pathname.startsWith("/[username]")}
           onClick={(e) => {
             e.preventDefault();
-            router.push("/profile/mohamedshadhaan");
+            router.push("/mohamedshadhaan");
           }}
         />
         <div className="has-tooltip">
