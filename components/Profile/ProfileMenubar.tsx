@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { paddingClass } from "../../lib/constants";
 import NavButton from "../Navbar/NavButton";
 
 export default function ProfileMenubar() {
@@ -14,26 +13,26 @@ export default function ProfileMenubar() {
   ];
 
   return (
-    <div
-      className={`sticky h-14 bg-white shadow-sm flex space-x-2 justify-center justify-self-center ${paddingClass}`}
-    >
-      {profileMenuItems.map((item, i) => {
-        return (
-          <NavButton
-            key={item.name + i.toString()}
-            onClick={(e) => {
-              e.preventDefault();
-              router.push({
-                pathname: item.link,
-                query: { username: "mohamedshadhaan" },
-              });
-            }}
-            active={router.pathname === item.link}
-          >
-            {item.name}
-          </NavButton>
-        );
-      })}
+    <div className="sticky h-14 w-full bg-white shadow-sm flex justify-center">
+        <div className="max-w-4xl w-full flex space-x-2 justify-start text-center overflow-scroll px-4">
+          {profileMenuItems.map((item, i) => {
+            return (
+              <NavButton
+                key={item.name + i.toString()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push({
+                    pathname: item.link,
+                    query: { username: "mohamedshadhaan" },
+                  });
+                }}
+                active={router.pathname === item.link}
+              >
+                {item.name}
+              </NavButton>
+            );
+          })}
+        </div>
     </div>
   );
 }

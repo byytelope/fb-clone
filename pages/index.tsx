@@ -1,15 +1,16 @@
 import { NextPage } from "next";
 import { withIronSessionSsr } from "iron-session/next";
 import { sessionOptions } from "../lib/session";
-import { paddingClass } from "../lib/constants";
 
 const Index: NextPage = () => {
   return (
-    <div className={paddingClass}>
-      <span>Logged In</span>
-      <div className="h-screen" />
-      <div className="h-screen" />
-      <div className="h-screen" />
+    <div className="flex justify-center">
+      <div className="max-w-5xl w-full px-4">
+        <span>Logged In</span>
+        <div className="h-screen" />
+        <div className="h-screen" />
+        <div className="h-screen" />
+      </div>
     </div>
   );
 };

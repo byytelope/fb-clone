@@ -13,14 +13,14 @@ export default function NavButton({
   tooltip?: string;
 }) {
   return (
-    <div className="flex relative items-center h-14 w-full justify-center has-tooltip">
+    <div className="flex relative items-center h-14 min-w-max w-full justify-center has-tooltip">
       {tooltip === undefined ? (
         <></>
       ) : (
         <span className="tooltip">{tooltip}</span>
       )}
       <div
-        className={`flex justify-center items-center h-12 w-full cursor-pointer rounded-lg hover:bg-lightBg transition-colors duration-300 my-4 font-medium ${
+        className={`flex justify-center items-center h-12 px-4 w-full cursor-pointer rounded-lg hover:bg-lightBg transition-colors duration-300 my-4 font-medium ${
           active ? "text-bluePrimary" : "text-textSecondary"
         }`}
         onClick={onClick}

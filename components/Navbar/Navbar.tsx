@@ -11,11 +11,11 @@ export default function Navbar() {
   const router = useRouter();
 
   return (
-    <div className="fixed w-full grid grid-cols-3 grid-rows-1 bg-white h-14 items-center px-4 shadow z-50">
+    <div className="fixed w-full grid grid-cols-2 md:grid-cols-3 grid-rows-1 bg-white h-14 items-center px-4 shadow z-50">
       <div className="justify-self-start">
         <FbLogo />
       </div>
-      <div className="flex space-x-2 w-64 justify-center justify-self-center">
+      <div className="hidden md:flex space-x-2 w-64 justify-center justify-self-center">
         <NavButton
           tooltip="Home"
           active={router.pathname === "/"}
@@ -37,7 +37,7 @@ export default function Navbar() {
           <FriendsIconNav filled={router.pathname === "/friends"} />
         </NavButton>
       </div>
-      <div className="flex justify-self-end items-center space-x-4 text-xl">
+      <div className="flex justify-self-end items-center space-x-2 text-xl">
         <ProfileButtonNav
           active={router.pathname.startsWith("/[username]")}
           onClick={(e) => {

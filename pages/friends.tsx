@@ -1,15 +1,18 @@
 import { NextPage } from "next";
 import { withIronSessionSsr } from "iron-session/next";
 import { sessionOptions } from "../lib/session";
-import { paddingClass } from "../lib/constants";
+import CommonHead from "../components/CommonHead";
 
 const Friends: NextPage = () => {
   return (
-    <div className={paddingClass}>
-      <span>Friends</span>
-      <div className="h-screen" />
-      <div className="h-screen" />
-      <div className="h-screen" />
+    <div className="flex justify-center">
+      <div className="max-w-5xl w-full px-4">
+        <CommonHead title="Friends | Facebook" />
+        <span>Friends</span>
+        <div className="h-screen" />
+        <div className="h-screen" />
+        <div className="h-screen" />
+      </div>
     </div>
   );
 };

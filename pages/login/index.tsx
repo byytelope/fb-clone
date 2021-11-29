@@ -163,9 +163,9 @@ const Login: NextPage = () => {
 
   return (
     <main>
-      <CommonHead title="Facebook - log in or sign up" />
-      <div className="flex flex-col min-h-screen md:h-screen justify-between">
-        <section className="flex flex-col md:flex-row justify-center items-center lg:justify-start h-full sm:h-3/4 w-full px-4 md:px-16 lg:px-24 xl:px-32 2xl:px-80 py-16 md:py-0 lg:space-x-16 space-y-8 lg:space-y-0">
+      <CommonHead title="Facebook – log in or sign up" themeColor="#F0F2F5" />
+      <div className="flex flex-col min-h-screen md:h-screen justify-between items-center">
+        <section className="flex flex-col md:flex-row justify-center items-center lg:justify-start h-full sm:h-3/4 w-full max-w-5xl px-4 py-16 md:py-0 lg:space-x-16 space-y-8 lg:space-y-0">
           <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left w-full lg:w-3/5 space-y-6">
             <Image
               src={fbLogo}
@@ -323,15 +323,17 @@ const Login: NextPage = () => {
             </form>
           </Modal>
         </section>
-        <footer className="flex flex-col h-full sm:h-1/4 bg-white px-4 md:px-16 lg:px-24 xl:px-32 2xl:px-80 text-textSecondary text-xs space-y-4 py-8">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-            voluptatem odit voluptas velit doloremque at culpa reiciendis
-            tempore laudantium. Consequatur illo perspiciatis labore reiciendis
-            dignissimos nihil fuga. Mollitia, praesentium aperiam.
-          </p>
-          <Divider />
-          <span>Meta © 2021</span>
+        <footer className="flex h-full sm:h-1/4 w-full justify-center bg-white px-4 py-8">
+          <div className="flex flex-col max-w-5xl w-full text-textSecondary text-xs space-y-4 ">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
+              voluptatem odit voluptas velit doloremque at culpa reiciendis
+              tempore laudantium. Consequatur illo perspiciatis labore
+              reiciendis dignissimos nihil fuga. Mollitia, praesentium aperiam.
+            </p>
+            <Divider />
+            <span>Meta © 2021</span>
+          </div>
         </footer>
       </div>
     </main>

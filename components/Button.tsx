@@ -24,7 +24,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               : props.variant === "primary"
               ? primaryClass
               : secondaryClass
-          } font-medium rounded-md h-9 px-4 transition-colors duration-300 flex items-center`}
+          } font-medium rounded-md h-9 px-3 transition-colors duration-300 flex items-center`}
         />
       </motion.div>
     );
