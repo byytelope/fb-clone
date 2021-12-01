@@ -2,16 +2,20 @@ import { motion } from "framer-motion";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "secondary";
+  variant: "primary" | "secondary" | "text";
+  wide?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ ...props }, ref) => {
+  ({ variant, wide, ...props }, ref) => {
     const primaryClass =
-      "bg-bluePrimary hover:bg-blueSecondary focus:bg-blueTertiary text-white";
+      "bg-bluePrimary hover:bg-blueSecondary focus:bg-blueTertiary text-white font-medium ";
     const secondaryClass =
-      "bg-lightBg hover:bg-lightSecondary focus:bg-lightSecondary text-black";
-    const disabledClass = "bg-lightBg text-textTertiary pointer-events-none";
+      "bg-lightBg hover:bg-lightSecondary focus:bg-lightSecondary text-black font-medium ";
+    const textClass =
+      "bg-transparent hover:bg-lightBg focus:bg-lightBg text-bluePrimary";
+    const disabledClass =
+      "bg-lightBg text-textTertiary pointer-events-none font-medium ";
 
     return (
       <motion.div whileTap={props.disabled ? {} : { scale: 0.97 }}>
@@ -21,10 +25,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className={`${
             props.disabled
               ? disabledClass
-              : props.variant === "primary"
+              : variant === "primary"
               ? primaryClass
-              : secondaryClass
-          } font-medium rounded-md h-9 px-3 transition-colors duration-300 flex items-center`}
+              : variant === "secondary"
+              ? secondaryClass
+              : textClass
+          } rounded-md h-9 px-3 transition-colors duration-300 flex items-center justify-center space-x-2 ${
+            wide ? "w-full" : ""
+          }`}
         />
       </motion.div>
     );

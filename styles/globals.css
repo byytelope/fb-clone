@@ -12,7 +12,7 @@
   }
 
   .tooltip {
-    @apply invisible opacity-0 absolute rounded-lg text-white text-sm bg-darkBg bg-opacity-70 px-4 py-2 shadow-md transition-all duration-300 mt-12 backdrop-blur-sm pointer-events-none z-50;
+    @apply invisible opacity-0 absolute rounded-lg text-white text-sm bg-darkBg bg-opacity-70 px-4 py-2 shadow-md transition-all duration-300 -mt-12 md:mt-12 backdrop-blur-sm pointer-events-none z-50;
   }
 
   .has-tooltip:hover .tooltip {

@@ -6,7 +6,7 @@ import CommonHead from "../components/CommonHead";
 const Friends: NextPage = () => {
   return (
     <div className="flex justify-center">
-      <div className="max-w-5xl w-full px-4">
+      <div className="max-w-4xl w-full px-4">
         <CommonHead title="Friends | Facebook" />
         <span>Friends</span>
         <div className="h-screen" />

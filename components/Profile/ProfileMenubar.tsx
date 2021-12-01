@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import NavButton from "../Navbar/NavButton";
+import TabButton from "../TabButton";
 
 export default function ProfileMenubar() {
   const router = useRouter();
@@ -13,11 +13,11 @@ export default function ProfileMenubar() {
   ];
 
   return (
-    <div className="sticky h-14 w-full bg-white shadow-sm flex justify-center">
+    <div className="sticky top-14 h-14 w-full bg-white shadow flex justify-center z-40">
         <div className="max-w-4xl w-full flex space-x-2 justify-start text-center overflow-scroll px-4">
           {profileMenuItems.map((item, i) => {
             return (
-              <NavButton
+              <TabButton
                 key={item.name + i.toString()}
                 onClick={(e) => {
                   e.preventDefault();
@@ -29,7 +29,7 @@ export default function ProfileMenubar() {
                 active={router.pathname === item.link}
               >
                 {item.name}
-              </NavButton>
+              </TabButton>
             );
           })}
         </div>

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import FriendsIconNav from "./FriendsIconNav";
 import HomeIconNav from "./HomeIconNav";
-import NavButton from "./NavButton";
+import TabButton from "../TabButton";
 
 export default function BottomNavbar() {
   const router = useRouter();
@@ -9,7 +9,8 @@ export default function BottomNavbar() {
   return (
     <div className="fixed bottom-0 w-full flex md:hidden justify-center bg-white h-14 items-center px-4 border-t border-lightSecondary z-50">
       <div className="flex space-x-2 w-64 justify-center justify-self-center">
-        <NavButton
+        <TabButton
+          bottom
           tooltip="Home"
           active={router.pathname === "/"}
           onClick={(e) => {
@@ -18,8 +19,9 @@ export default function BottomNavbar() {
           }}
         >
           <HomeIconNav filled={router.pathname === "/"} />
-        </NavButton>
-        <NavButton
+        </TabButton>
+        <TabButton
+          bottom
           tooltip="Friends"
           active={router.pathname === "/friends"}
           onClick={(e) => {
@@ -28,7 +30,7 @@ export default function BottomNavbar() {
           }}
         >
           <FriendsIconNav filled={router.pathname === "/friends"} />
-        </NavButton>
+        </TabButton>
       </div>
     </div>
   );

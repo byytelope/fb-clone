@@ -4,7 +4,7 @@ import FbLogo from "./FbLogo";
 import FriendsIconNav from "./FriendsIconNav";
 import HomeIconNav from "./HomeIconNav";
 import IconButton from "../IconButton";
-import NavButton from "./NavButton";
+import TabButton from "../TabButton";
 import ProfileButtonNav from "./ProfileButtonNav";
 
 export default function Navbar() {
@@ -16,7 +16,7 @@ export default function Navbar() {
         <FbLogo />
       </div>
       <div className="hidden md:flex space-x-2 w-64 justify-center justify-self-center">
-        <NavButton
+        <TabButton
           tooltip="Home"
           active={router.pathname === "/"}
           onClick={(e) => {
@@ -25,8 +25,8 @@ export default function Navbar() {
           }}
         >
           <HomeIconNav filled={router.pathname === "/"} />
-        </NavButton>
-        <NavButton
+        </TabButton>
+        <TabButton
           tooltip="Friends"
           active={router.pathname === "/friends"}
           onClick={(e) => {
@@ -35,7 +35,7 @@ export default function Navbar() {
           }}
         >
           <FriendsIconNav filled={router.pathname === "/friends"} />
-        </NavButton>
+        </TabButton>
       </div>
       <div className="flex justify-self-end items-center space-x-2 text-xl">
         <ProfileButtonNav
