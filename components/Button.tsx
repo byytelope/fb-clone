@@ -30,7 +30,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               : variant === "secondary"
               ? secondaryClass
               : textClass
-          } rounded-md h-9 px-3 transition-colors duration-300 flex items-center justify-center space-x-2 ${
+          } rounded-md h-9 px-3 transition-colors duration-300 flex items-center justify-center space-x-2 select-none ${
             wide ? "w-full" : ""
           }`}
         />

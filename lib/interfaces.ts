@@ -1,4 +1,4 @@
-export type User = {
+export interface User {
   firstName: string;
   surname: string;
   username: string;
@@ -6,4 +6,4 @@ export type User = {
   password: string;
   dob: string;
   gender: "male" | "female";
-};
+}

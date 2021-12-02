@@ -6,8 +6,10 @@ import HomeIconNav from "./HomeIconNav";
 import IconButton from "../IconButton";
 import TabButton from "../TabButton";
 import ProfileButtonNav from "./ProfileButtonNav";
+import { useUser } from "../../lib/hooks";
 
 export default function Navbar() {
+  const { user } = useUser();
   const router = useRouter();
 
   return (
@@ -39,10 +41,11 @@ export default function Navbar() {
       </div>
       <div className="flex justify-self-end items-center space-x-2 text-xl">
         <ProfileButtonNav
+          firstName={user?.firstName}
           active={router.pathname.startsWith("/[username]")}
           onClick={(e) => {
             e.preventDefault();
-            router.push("/mohamedshadhaan");
+            router.push(`/${user?.username!}`);
           }}
         />
         <div className="has-tooltip">

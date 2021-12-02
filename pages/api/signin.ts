@@ -4,7 +4,7 @@ import isEmail from "validator/lib/isEmail";
 import { collection, getDocs, query, where } from "firebase/firestore/lite";
 import { db } from "../../lib/db";
 import { sessionOptions } from "../../lib/session";
-import { User } from "../../lib/user";
+import { User } from "../../lib/interfaces";
 
 export default withIronSessionApiRoute(
   async function handler(req, res) {
@@ -12,6 +12,7 @@ export default withIronSessionApiRoute(
       const { email, password }: { email: string; password: string } = req.body;
       const emailValid = isEmail(email);
       console.log("Email valid: " + emailValid);
+      
       const q = query(collection(db, "users"), where("email", "==", email));
       const snapshot = await getDocs(q);
 

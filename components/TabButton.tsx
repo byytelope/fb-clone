@@ -27,7 +27,7 @@ export default function TabButton({
         <span className="tooltip">{tooltip}</span>
       )}
       <div
-        className={`flex justify-center items-center space-x-2 h-12 px-4 w-full cursor-pointer rounded-lg hover:bg-lightBg transition-colors duration-300 my-4 font-medium ${
+        className={`flex justify-center items-center space-x-2 h-12 px-4 w-full cursor-pointer rounded-lg hover:bg-lightBg transition-colors duration-300 my-4 font-medium select-none ${
           active ? "text-bluePrimary" : "text-textSecondary"
         }`}
         onClick={onClick}

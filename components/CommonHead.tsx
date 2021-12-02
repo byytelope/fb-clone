@@ -18,7 +18,7 @@ export default function CommonHead({
         name="description"
         content={description ?? "Welcome to Facebook!"}
       />
-      <meta name="theme-color" content={themeColor ?? "#FFFFFF"} />
+      <meta name="theme-color" content={themeColor ?? ""} />
       <link rel="icon" href="/favicon.ico" />
     </Head>
   );

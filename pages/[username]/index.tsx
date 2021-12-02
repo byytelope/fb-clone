@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import { withIronSessionSsr } from "iron-session/next";
 import { sessionOptions } from "../../lib/session";
@@ -18,6 +19,7 @@ import TabButton from "../../components/TabButton";
 import { useState } from "react";
 
 const Profile: NextPage = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"listView" | "gridView">(
     "listView"
   );
@@ -44,21 +46,37 @@ const Profile: NextPage = () => {
         <div className="bg-white rounded-lg shadow p-4 space-y-4 flex flex-col">
           <div className="flex items-center justify-between w-full">
             <span className="font-bold text-xl">Photos</span>
-            <Button variant="text">See All Photos</Button>
+            <Button
+              variant="text"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/mohamedshadhaan/photos");
+              }}
+            >
+              See All Photos
+            </Button>
           </div>
           <div className="h-96" />
         </div>
         <div className="bg-white rounded-lg shadow p-4 space-y-4 flex flex-col">
           <div className="flex items-center justify-between w-full">
             <span className="font-bold text-xl">Friends</span>
-            <Button variant="text">See All Friends</Button>
+            <Button
+              variant="text"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/mohamedshadhaan/friends");
+              }}
+            >
+              See All Friends
+            </Button>
           </div>
           <div className="h-96" />
         </div>
       </div>
       <div className="max-w-lg w-full md:w-3/5 space-y-4">
-        <div className="bg-white rounded-lg shadow flex flex-col">
-          <div className="flex space-x-4 p-4">
+        <div className="bg-white rounded-lg shadow flex flex-col p-4 space-y-4">
+          <div className="flex space-x-2">
             <div className="h-10 relative">
               <Image
                 src={avatar}
@@ -80,7 +98,7 @@ const Profile: NextPage = () => {
             </motion.div>
           </div>
           <Divider />
-          <div className="p-4 flex w-full space-x-4">
+          <div className="flex w-full space-x-2">
             <div className="w-full">
               <Button variant="secondary" wide>
                 <BsFileEarmarkImageFill className="text-greenPrimary" />
@@ -103,8 +121,10 @@ const Profile: NextPage = () => {
               <span>Filters</span>
             </Button>
           </div>
-          <Divider />
-          <div className="px-4 flex">
+          <div className="px-4">
+            <Divider />
+          </div>
+          <div className="flex space-x-2 px-4">
             <TabButton
               active={activeTab === "listView"}
               onClick={(e) => {

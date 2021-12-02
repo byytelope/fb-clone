@@ -13,7 +13,7 @@ import isDate from "validator/lib/isDate";
 import isStrongPassword from "validator/lib/isStrongPassword";
 import { db } from "../../lib/db";
 import { sessionOptions } from "../../lib/session";
-import { User } from "../../lib/user";
+import { User } from "../../lib/interfaces";
 
 export default withIronSessionApiRoute(
   async function handler(req, res) {
