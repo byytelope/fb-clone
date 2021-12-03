@@ -14,15 +14,22 @@ import {
   BsSliders,
 } from "react-icons/bs";
 import TabButton from "../../components/TabButton";
-import { useState } from "react";
-// import { sessionOptions } from "../../lib/session";
-// import { withIronSessionSsr } from "iron-session/next";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 const Profile: NextPage = () => {
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState<"listView" | "gridView">(
     "listView"
   );
+  const router = useRouter();
+  const { data, error: sessionError } =
+    useSWR<{ message: string; userId: string }>("/api/session");
+
+  useEffect(() => {
+    if (data?.userId == null) {
+      router.replace("/login");
+    }
+  }, [router, data?.userId]);
 
   return (
     <div className="flex flex-col md:flex-row md:space-x-4 space-y-4  md:space-y-0 py-4">
@@ -161,26 +168,6 @@ const Profile: NextPage = () => {
     </div>
   );
 };
-
-// export const getServerSideProps = withIronSessionSsr(
-//   async function getServerSideProps({ req }) {
-//     const userId = req.session.userId;
-
-//     if (userId == null) {
-//       return {
-//         redirect: {
-//           destination: "/login",
-//           permanent: true,
-//         },
-//       };
-//     }
-
-//     return {
-//       props: { userId },
-//     };
-//   },
-//   sessionOptions
-// );
 
 Profile.displayName = "Profile";
 

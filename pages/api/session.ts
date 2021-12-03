@@ -9,7 +9,7 @@ export default withIronSessionApiRoute(
       res.status(401).json({ message: "Not logged in" });
       return;
     } else {
-      res.status(200).json({ userId });
+      res.status(200).json({ message: "Success", userId });
       return;
     }
   },

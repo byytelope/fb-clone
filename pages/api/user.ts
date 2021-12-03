@@ -15,7 +15,7 @@ export default withIronSessionApiRoute(
 
       if (docSnap.exists()) {
         const user = docSnap.data();
-        res.status(200).json(user);
+        res.status(200).json({ message: "Success", user });
         return;
       } else {
         res.status(404).json({ message: "User not found" });

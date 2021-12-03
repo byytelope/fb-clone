@@ -1,9 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { withIronSessionSsr } from "iron-session/next";
 import isEmail from "validator/lib/isEmail";
 import FormButton from "../../components/FormButton";
 import CommonHead from "../../components/CommonHead";
@@ -11,8 +10,8 @@ import Divider from "../../components/Divider";
 import Modal from "../../components/Modal";
 import Select from "../../components/Select";
 import TextField from "../../components/TextField";
-import { sessionOptions } from "../../lib/session";
 import fbLogo from "../../public/fbLogo.png";
+import useSWR from "swr";
 
 const Login: NextPage = () => {
   const [email, setEmail] = useState("");
@@ -34,6 +33,8 @@ const Login: NextPage = () => {
   const [genderError, setGenderError] = useState("");
   const initialFocusRef = useRef(null);
   const router = useRouter();
+  const { data, error: sessionError } =
+    useSWR<{ message: string; userId: string }>("/api/session");
 
   const dialogCallback = () => {
     setIsDialogOpen(false);
@@ -160,6 +161,12 @@ const Login: NextPage = () => {
       }
     });
   };
+
+  useEffect(() => {
+    if (data?.userId != null) {
+      router.replace("/");
+    }
+  }, [router, data?.userId]);
 
   return (
     <main>
@@ -339,26 +346,6 @@ const Login: NextPage = () => {
     </main>
   );
 };
-
-export const getServerSideProps = withIronSessionSsr(
-  async function getServerSideProps({ req }) {
-    const userId = req.session.userId;
-
-    if (userId != null) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: true,
-        },
-      };
-    }
-
-    return {
-      props: {},
-    };
-  },
-  sessionOptions
-);
 
 Login.displayName = "Login";
 
