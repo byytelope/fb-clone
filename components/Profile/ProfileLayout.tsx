@@ -15,7 +15,7 @@ import ProfileMenubar from "../../components/Profile/ProfileMenubar";
 import { useUser } from "../../lib/hooks";
 
 const ProfileLayout = ({ children }: { children: ReactNode }) => {
-  const { user, isLoading } = useUser();
+  const { user, error } = useUser();
 
   return (
     <div className="flex flex-col w-full">
@@ -59,9 +59,7 @@ const ProfileLayout = ({ children }: { children: ReactNode }) => {
               </div>
               <div className="flex flex-col lg:pt-8 pb-4 items-center lg:items-start">
                 <span className="font-bold text-3xl">
-                  {isLoading
-                    ? "Your Name"
-                    : user?.firstName + " " + user?.surname}
+                  {!user ? "Your Name" : user?.firstName + " " + user?.surname}
                 </span>
                 <span className="font-medium text-textSecondary">
                   127 Friends
@@ -96,7 +94,7 @@ const ProfileLayout = ({ children }: { children: ReactNode }) => {
           <Divider />
         </div>
       </div>
-      <ProfileMenubar username={user?.username!} />
+      <ProfileMenubar username={user?.username} />
       <div className="flex justify-center">
         <div className="max-w-4xl w-full px-4">{children}</div>
       </div>

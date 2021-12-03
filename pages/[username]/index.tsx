@@ -15,8 +15,8 @@ import {
 } from "react-icons/bs";
 import TabButton from "../../components/TabButton";
 import { useState } from "react";
-import { sessionOptions } from "../../lib/session";
-import { withIronSessionSsr } from "iron-session/next";
+// import { sessionOptions } from "../../lib/session";
+// import { withIronSessionSsr } from "iron-session/next";
 
 const Profile: NextPage = () => {
   const router = useRouter();
@@ -162,25 +162,25 @@ const Profile: NextPage = () => {
   );
 };
 
-export const getServerSideProps = withIronSessionSsr(
-  async function getServerSideProps({ req }) {
-    const userId = req.session.userId;
+// export const getServerSideProps = withIronSessionSsr(
+//   async function getServerSideProps({ req }) {
+//     const userId = req.session.userId;
 
-    if (userId == null) {
-      return {
-        redirect: {
-          destination: "/login",
-          permanent: true,
-        },
-      };
-    }
+//     if (userId == null) {
+//       return {
+//         redirect: {
+//           destination: "/login",
+//           permanent: true,
+//         },
+//       };
+//     }
 
-    return {
-      props: { userId },
-    };
-  },
-  sessionOptions
-);
+//     return {
+//       props: { userId },
+//     };
+//   },
+//   sessionOptions
+// );
 
 Profile.displayName = "Profile";
 
