@@ -6,7 +6,7 @@ const ProfileArchive: NextPage = () => {
   return <div>Story Archive</div>;
 };
 
-const getServerSideProps = withIronSessionSsr(
+export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -29,4 +29,3 @@ const getServerSideProps = withIronSessionSsr(
 ProfileArchive.displayName = "ProfileArchive";
 
 export default ProfileArchive;
-export { getServerSideProps };

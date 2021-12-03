@@ -6,7 +6,7 @@ import { sessionOptions } from "../../lib/session";
 export default withIronSessionApiRoute(
   async function handler(req, res) {
     if (req.session.userId == null) {
-      res.status(401).send({ message: "Not logged in" });
+      res.status(401).json({ message: "Not logged in" });
       return;
     } else {
       const userId = req.query.userId as string ?? req.session.userId;
@@ -15,10 +15,10 @@ export default withIronSessionApiRoute(
 
       if (docSnap.exists()) {
         const user = docSnap.data();
-        res.status(200).send(user);
+        res.status(200).json(user);
         return;
       } else {
-        res.status(404).send({ message: "User not found" });
+        res.status(404).json({ message: "User not found" });
         return;
       }
     }

@@ -1,5 +1,5 @@
-import { NextPage } from "next";
 import { withIronSessionSsr } from "iron-session/next";
+import { NextPage } from "next";
 import { sessionOptions } from "../lib/session";
 
 const Index: NextPage = () => {
@@ -15,7 +15,7 @@ const Index: NextPage = () => {
   );
 };
 
-const getServerSideProps = withIronSessionSsr(
+export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -36,4 +36,3 @@ const getServerSideProps = withIronSessionSsr(
 );
 
 export default Index;
-export { getServerSideProps };

@@ -1,8 +1,6 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { withIronSessionSsr } from "iron-session/next";
-import { sessionOptions } from "../../lib/session";
 import CommonHead from "../../components/CommonHead";
 import Button from "../../components/Button";
 import Divider from "../../components/Divider";
@@ -17,6 +15,8 @@ import {
 } from "react-icons/bs";
 import TabButton from "../../components/TabButton";
 import { useState } from "react";
+import { sessionOptions } from "../../lib/session";
+import { withIronSessionSsr } from "iron-session/next";
 
 const Profile: NextPage = () => {
   const router = useRouter();
@@ -162,7 +162,7 @@ const Profile: NextPage = () => {
   );
 };
 
-const getServerSideProps = withIronSessionSsr(
+export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -185,4 +185,3 @@ const getServerSideProps = withIronSessionSsr(
 Profile.displayName = "Profile";
 
 export default Profile;
-export { getServerSideProps };

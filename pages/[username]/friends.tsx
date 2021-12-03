@@ -6,7 +6,7 @@ const ProfileFriends: NextPage = () => {
   return <div>Friends</div>;
 };
 
-const getServerSideProps = withIronSessionSsr(
+export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -29,4 +29,3 @@ const getServerSideProps = withIronSessionSsr(
 ProfileFriends.displayName = "ProfileFriends";
 
 export default ProfileFriends;
-export { getServerSideProps };

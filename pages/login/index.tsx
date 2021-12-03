@@ -340,7 +340,7 @@ const Login: NextPage = () => {
   );
 };
 
-const getServerSideProps = withIronSessionSsr(
+export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -363,4 +363,3 @@ const getServerSideProps = withIronSessionSsr(
 Login.displayName = "Login";
 
 export default Login;
-export { getServerSideProps };

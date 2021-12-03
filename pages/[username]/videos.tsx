@@ -6,7 +6,7 @@ const ProfileVideos: NextPage = () => {
   return <div>Videos</div>;
 };
 
-const getServerSideProps = withIronSessionSsr(
+export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -29,4 +29,3 @@ const getServerSideProps = withIronSessionSsr(
 ProfileVideos.displayName = "ProfileVideos";
 
 export default ProfileVideos;
-export { getServerSideProps };

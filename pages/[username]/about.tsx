@@ -3,10 +3,14 @@ import { NextPage } from "next";
 import { sessionOptions } from "../../lib/session";
 
 const ProfileAbout: NextPage = () => {
-  return <div>About</div>;
+  return (
+    <div>
+      <span>About</span>
+    </div>
+  );
 };
 
-const getServerSideProps = withIronSessionSsr(
+export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
     const userId = req.session.userId;
 
@@ -29,4 +33,3 @@ const getServerSideProps = withIronSessionSsr(
 ProfileAbout.displayName = "ProfileAbout";
 
 export default ProfileAbout;
-export { getServerSideProps };

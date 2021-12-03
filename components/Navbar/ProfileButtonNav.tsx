@@ -21,10 +21,9 @@ export default function ProfileButtonNav({
       } p-1 rounded-full transition-colors duration-300 cursor-pointer has-tooltip select-none overflow-hidden`}
       onClick={onClick}
       whileTap={{ scale: 0.97 }}
-      layout
     >
       <span className="tooltip">Profile</span>
-      <motion.div className="flex pointer-events-none" layout>
+      <div className="flex pointer-events-none">
         <Image
           src={noProfilePic}
           alt="Profile Pic"
@@ -33,14 +32,11 @@ export default function ProfileButtonNav({
           layout="fixed"
           className="rounded-full"
         />
-      </motion.div>
+      </div>
       {firstName && (
-        <motion.span
-          className="hidden md:inline-block font-medium text-sm px-2"
-          layout
-        >
+        <span className="hidden md:inline-block font-medium text-sm px-2">
           {firstName}
-        </motion.span>
+        </span>
       )}
     </motion.div>
   );
